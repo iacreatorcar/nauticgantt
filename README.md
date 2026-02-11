@@ -20,61 +20,69 @@
 ---
 
 ## 🛠 Stack Tecnologico
-
 Frontend : HTML5, CSS3, JavaScript ES6+
 Styling : CSS Custom Properties, Flexbox, CSS Grid
 Icone : Font Awesome 6
 Font : Segoe UI (sistema)
 Licenza : CC BY-NC-ND 4.0
 
-.
 
-📊 Dati di Esempio
+---
+
+## 📊 Dati di Esempio
+
 La demo include dati simulati per:
 
-Categoria	Quantità
-🚢 Yacht in produzione	4
-📋 Task attivi	9
-🏭 Società coinvolte	5
-📦 Consegne Q2 2024	3
-👨‍💻 Sviluppo e Concept
-Ideato e sviluppato da: Carmine D'Alise
-Ruolo: Full Stack Developer & UI Designer
-Anno: 2024
-Concept: Digitalizzazione cantieri nautici
+| Categoria | Quantità |
+|----------|----------|
+| 🚢 Yacht in produzione | 4 |
+| 📋 Task attivi | 9 |
+| 🏭 Società coinvolte | 5 |
+| 📦 Consegne Q2 2024 | 3 |
 
-text
-✅ Progettazione UI/UX        100%
-✅ Sviluppo Frontend          100%
+---
+
+## 👨‍💻 Sviluppo e Concept
+
+**Ideato e sviluppato da:** Carmine D'Alise  
+**Ruolo:** Digital Operation Specialist & UI Designer  
+**Anno:** 2024  
+**Concept:** Digitalizzazione cantieri nautici
+
+✅ Progettazione UI/UX 100%
+✅ Sviluppo Frontend 100%
 ✅ Ottimizzazione Performance ✓
-✅ Cross-browser testing     ✓
-✅ Responsive Design         ✓
-🌐 Demo Live
-🔗 https://iacreatorcar.github.io/nauticgantt/
+✅ Cross-browser testing ✓
+✅ Responsive Design ✓
 
-📄 Licenza
-Quest'opera è rilasciata sotto licenza
-Creative Commons Attribuzione - Non commerciale - Non opere derivate 4.0 Internazionale (CC BY-NC-ND 4.0).
 
-Tu sei libero di:
+---
 
-✅ Condividere – riprodurre, distribuire, comunicare al pubblico il materiale
+## 🌐 Demo Live
 
-Alle seguenti condizioni:
+🔗 **[https://iacreatorcar.github.io/nauticgantt/](https://iacreatorcar.github.io/nauticgantt/)**
 
-📌 Attribuzione – Devi riconoscere una menzione di paternità adeguata
+---
 
-💰 NonCommerciale – Non puoi usare il materiale per scopi commerciali
+## 📄 Licenza
 
-🚫 Non opere derivate – Non puoi modificare o trasformare il materiale
+**Creative Commons Attribuzione - Non commerciale - Non opere derivate 4.0 Internazionale (CC BY-NC-ND 4.0)**
 
-Testo completo: LICENSE
+- ✅ Condivisione consentita con attribuzione
+- 💰 Uso commerciale non consentito
+- 🚫 Modifiche non consentite
 
-⭐ Crediti
-Realizzato con cura da Carmine D'Alise per dimostrazione tecnica e portfolio.
-Se il progetto ti è utile, lascia una stella su GitHub!
+Testo completo: [LICENSE](LICENSE)
 
-📬 Contatti:
-GitHub: @iacreatorcar
-Progetto: NauticGantt
+---
 
+## ⭐ Crediti
+
+Progetto dimostrativo e portfolio a cura di **Carmine D'Alise**.  
+*Segui il progetto su GitHub.*
+
+---
+
+📬 **Contatti:**  
+GitHub: [@iacreatorcar](https://github.com/iacreatorcar)  
+Repository: [NauticGantt](https://github.com/iacreatorcar/nauticgantt)
