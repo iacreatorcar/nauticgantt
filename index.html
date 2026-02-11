@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarinaFlow - Gestione Avanzata Cantieri</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #0d47a1;
+            --accent: #00bcd4;
+            --light: #f5f7ff;
+            --dark: #0a1931;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --danger: #f44336;
+            --info: #2196F3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7ff 0%, #e3f2fd 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--accent);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+        }
+
+        .number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .gantt-container {
+            grid-column: 1 / 2;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .controls button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background: var(--light);
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .controls button:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .gantt-chart {
+            min-height: 400px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            background: #fafafa;
+            overflow-x: auto;
+        }
+
+        .gantt-task {
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .gantt-task:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .task-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .task-dates {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .color-box {
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .company-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .company-item {
+            padding: 15px;
+            border-left: 4px solid;
+            border-radius: 8px;
+            background: var(--light);
+        }
+
+        .company-name {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .company-type {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .notify-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: linear-gradient(90deg, var(--success), #2e7d32);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .notify-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.4);
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--light);
+            z-index: 1;
+        }
+
+        .timeline-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 23%;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .date {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .yacht {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        .completed { background: #e8f5e9; color: var(--success); }
+        .in-progress { background: #fff3e0; color: var(--warning); }
+        .pending { background: #f5f5f5; color: #666; }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .note {
+            font-size: 0.8rem;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border-left: 3px solid #9ca3af;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-ship"></i> MarinaFlow Advanced</h1>
+            <p>Piattaforma di digitalizzazione per cantieri nautici - DEMO</p>
+        </header>
+
+        <div class="dashboard">
+            <div class="card stats">
+                <h3><i class="fas fa-chart-bar"></i> Panoramica</h3>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <span class="number">4</span>
+                        <span class="label">Yacht in produzione</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">9</span>
+                        <span class="label">Task attivi</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">5</span>
+                        <span class="label">Società coinvolte</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">3</span>
+                        <span class="label">Consegne Q2 2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card gantt-container">
+                <h3><i class="fas fa-calendar-alt"></i> Diagramma di Gantt - Produzione Yacht</h3>
+                <div class="controls">
+                    <button onclick="filterByYacht('all')">Tutti</button>
+                    <button onclick="filterByYacht('Sea Spirit')">Sea Spirit</button>
+                    <button onclick="filterByYacht('Ocean Dream')">Ocean Dream</button>
+                    <button onclick="filterByYacht('Blue Horizon')">Blue Horizon</button>
+                    <button onclick="filterByYacht('Royal Wave')">Royal Wave</button>
+                </div>
+                <div class="gantt-chart" id="ganttChart">
+                    <!-- Gantt verrà popolato da JavaScript -->
+                </div>
+                <div class="legend">
+                    <div><span class="color-box" style="background:#4CAF50"></span> Logistica</div>
+                    <div><span class="color-box" style="background:#FF9800"></span> Magazzino</div>
+                    <div><span class="color-box" style="background:#2196F3"></span> Arredamenti</div>
+                    <div><span class="color-box" style="background:#9C27B0"></span> Elettronica</div>
+                    <div><span class="color-box" style="background:#FF5722"></span> Audio/Video</div>
+                </div>
+            </div>
+
+            <div class="side-panel">
+                <div class="card companies">
+                    <h3><i class="fas fa-building"></i> Società Coinvolte</h3>
+                    <div class="company-list" id="companyList"></div>
+                </div>
+
+                <div class="card notification">
+                    <h3><i class="fas fa-bell"></i> Invio Notifiche</h3>
+                    <p>Seleziona un task per notificare la società via email:</p>
+                    <select id="taskSelect">
+                        <option value="">Seleziona task</option>
+                    </select>
+                    <button onclick="sendNotification()" class="notify-btn">
+                        <i class="fas fa-paper-plane"></i> Invia Notifica
+                    </button>
+                    <div id="notificationResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card deliveries">
+            <h3><i class="fas fa-flag-checkered"></i> Timeline Consegne</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="date">15 Aprile 2024</div>
+                    <div class="yacht">Sea Spirit</div>
+                    <div class="status completed">Consegnato</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">25 Maggio 2024</div>
+                    <div class="yacht">Ocean Dream</div>
+                    <div class="status in-progress">In produzione</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">20 Giugno 2024</div>
+                    <div class="yacht">Blue Horizon</div>
+                    <div class="status pending">In attesa</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">10 Luglio 2024</div>
+                    <div class="yacht">Royal Wave</div>
+                    <div class="status pending">Pianificato</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Demo portfolio - MarinaFlow v1.0 | Carmine D'Alise</p>
+            <p>Frontend: HTML/CSS/JS | Backend simulato (Node.js/Express)</p>
+            <p class="note">📌 Nomi, email e telefoni sono esempi fittizi. Solo uso dimostrativo e portfolio.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dati di esempio (simulano un database)
+        const allTasks = [
+            { id: 1, yacht: "Sea Spirit", task: "Trasporto scafo", startDate: "2024-03-01", endDate: "2024-03-05", company: "Logistica Mare SRL", color: "#4CAF50", status: "completed", notified: false },
+            { id: 2, yacht: "Sea Spirit", task: "Stoccaggio materiali", startDate: "2024-03-06", endDate: "2024-03-10", company: "Magazzino Nautico", color: "#FF9800", status: "in-progress", notified: true },
+            { id: 3, yacht: "Ocean Dream", task: "Taglio lamiere", startDate: "2024-03-15", endDate: "2024-03-20", company: "Cantiere Navale", color: "#2196F3", status: "in-progress", notified: false },
+            { id: 4, yacht: "Blue Horizon", task: "Installazione motori", startDate: "2024-03-10", endDate: "2024-03-15", company: "Motor Tech", color: "#9C27B0", status: "pending", notified: false },
+            { id: 5, yacht: "Royal Wave", task: "Verniciatura", startDate: "2024-03-20", endDate: "2024-03-25", company: "Pittura Mare", color: "#FF5722", status: "pending", notified: false }
+        ];
+
+        const allCompanies = [
+            { name: "Logistica Mare SRL", type: "logistica", email: "logistica@demo.it", phone: "+39 123 456789", tasks: ["Trasporto", "Dogana"] },
+            { name: "Magazzino Nautico", type: "magazzino", email: "magazzino@demo.it", phone: "+39 234 567890", tasks: ["Stoccaggio", "Inventario"] },
+            { name: "Arredamenti Nautici", type: "arredamenti", email: "arredamenti@demo.it", phone: "+39 345 678901", tasks: ["Interni", "Arredamento"] },
+            { name: "Cantiere Navale", type: "arredamenti", email: "cantiere@demo.it", phone: "+39 456 789012", tasks: ["Costruzione", "Montaggio"] },
+            { name: "Motor Tech", type: "elettronica", email: "motortech@demo.it", phone: "+39 456 789012", tasks: ["Motori", "Propulsione"] }
+        ];
+
+        function loadData() {
+            renderGantt(allTasks);
+            renderCompanies(allCompanies);
+            populateTaskSelect(allTasks);
+        }
+
+        function renderGantt(tasks) {
+            const ganttChart = document.getElementById('ganttChart');
+            ganttChart.innerHTML = '';
+            
+            const yachts = [...new Set(tasks.map(t => t.yacht))];
+            
+            yachts.forEach(yacht => {
+                const yachtHeader = document.createElement('div');
+                yachtHeader.className = 'yacht-header';
+                yachtHeader.innerHTML = `<h4>🚢 ${yacht}</h4>`;
+                ganttChart.appendChild(yachtHeader);
+                
+                const yachtTasks = tasks.filter(t => t.yacht === yacht);
+                
+                yachtTasks.forEach(task => {
+                    const taskEl = document.createElement('div');
+                    taskEl.className = 'gantt-task';
+                    taskEl.style.background = task.color;
+                    taskEl.dataset.id = task.id;
+                    
+                    const startDate = new Date(task.startDate);
+                    const endDate = new Date(task.endDate);
+                    
+                    taskEl.innerHTML = `
+                        <div class="task-info">
+                            <strong>${task.task}</strong>
+                            <div class="task-dates">
+                                ${formatDate(startDate)} → ${formatDate(endDate)}
+                            </div>
+                            <small>${task.company}</small>
+                        </div>
+                        <div class="task-status">
+                            ${task.status === 'completed' ? '✅' : task.status === 'in-progress' ? '⚡' : '⏳'}
+                            ${task.notified ? '📧' : ''}
+                        </div>
+                    `;
+                    
+                    taskEl.onclick = () => selectTask(task.id, task);
+                    ganttChart.appendChild(taskEl);
+                });
+            });
+        }
+
+        function renderCompanies(companies) {
+            const companyList = document.getElementById('companyList');
+            companyList.innerHTML = '';
+            
+            companies.forEach(company => {
+                const companyEl = document.createElement('div');
+                companyEl.className = 'company-item';
+                companyEl.style.borderLeftColor = getCompanyColor(company.type);
+                
+                companyEl.innerHTML = `
+                    <div class="company-name">🏢 ${company.name}</div>
+                    <div class="company-type">${getCompanyIcon(company.type)} ${company.type}</div>
+                    <div class="company-contact">
+                        <small>📧 ${company.email}</small><br>
+                        <small>📞 ${company.phone}</small>
+                    </div>
+                    <div class="company-tasks">
+                        <small>Task: ${company.tasks.join(', ')}</small>
+                    </div>
+                `;
+                
+                companyList.appendChild(companyEl);
+            });
+        }
+
+        function populateTaskSelect(tasks) {
+            const select = document.getElementById('taskSelect');
+            select.innerHTML = '<option value="">Seleziona task</option>';
+            
+            tasks.forEach(task => {
+                const option = document.createElement('option');
+                option.value = task.id;
+                option.textContent = `${task.yacht} - ${task.task} (${task.company})`;
+                option.dataset.task = JSON.stringify(task);
+                select.appendChild(option);
+            });
+        }
+
+        function filterByYacht(yacht) {
+            if (yacht === 'all') {
+                renderGantt(allTasks);
+            } else {
+                const filtered = allTasks.filter(t => t.yacht === yacht);
+                renderGantt(filtered);
+            }
+        }
+
+        function sendNotification() {
+            const select = document.getElementById('taskSelect');
+            const selected = select.options[select.selectedIndex];
+            
+            if (!selected.value) {
+                alert('Seleziona un task');
+                return;
+            }
+            
+            const task = JSON.parse(selected.dataset.task);
+            const company = allCompanies.find(c => c.name === task.company);
+            
+            if (!company) {
+                alert('Società non trovata');
+                return;
+            }
+            
+            const notificationResult = document.getElementById('notificationResult');
+            notificationResult.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> Invio in corso...</p>';
+            
+            // Simulazione invio
+            setTimeout(() => {
+                notificationResult.innerHTML = `
+                    <div style="color: green; background: #e8f5e9; padding: 10px; border-radius: 5px;">
+                        ✅ Notifica inviata a ${company.name} per: ${task.task}
+                    </div>
+                `;
+                
+                // Aggiorna stato task
+                const taskIndex = allTasks.findIndex(t => t.id === task.id);
+                if (taskIndex !== -1) {
+                    allTasks[taskIndex].notified = true;
+                }
+                
+                // Aggiorna UI
+                const taskEl = document.querySelector(`[data-id="${task.id}"]`);
+                if (taskEl) {
+                    taskEl.querySelector('.task-status').innerHTML += ' 📧';
+                }
+            }, 1500);
+        }
+
+        function formatDate(date) {
+            return date.toLocaleDateString('it-IT', {
+                day: '2-digit',
+                month: '2-digit'
+            });
+        }
+
+        function getCompanyColor(type) {
+            const colors = {
+                'logistica': '#4CAF50',
+                'magazzino': '#FF9800',
+                'arredamenti': '#2196F3',
+                'elettronica': '#9C27B0',
+                'audiovideo': '#FF5722'
+            };
+            return colors[type] || '#666';
+        }
+
+        function getCompanyIcon(type) {
+            const icons = {
+                'logistica': '🚚',
+                'magazzino': '📦',
+                'arredamenti': '🛋️',
+                'elettronica': '🔌',
+                'audiovideo': '📺'
+            };
+            return icons[type] || '🏢';
+        }
+
+        function selectTask(taskId, task) {
+            document.getElementById('taskSelect').value = taskId;
+            
+            document.querySelectorAll('.gantt-task').forEach(el => {
+                el.style.opacity = el.dataset.id == taskId ? '1' : '0.7';
+                el.style.border = el.dataset.id == taskId ? '2px solid #00bcd4' : 'none';
+            });
+        }
+
+        // Carica i dati al caricamento della pagina
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
