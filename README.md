@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey)
 ![Status](https://img.shields.io/badge/Status-Demo-green)
-![Tecnologie](https://img.shields.io/badge/Stack-HTML%2FCSS%2FJS-blue)
+![Stack](https://img.shields.io/badge/Stack-HTML%2FCSS%2FJS-blue)
 
 **NauticGantt** è un sistema di pianificazione visiva per cantieri nautici, progettato per ottimizzare la gestione della produzione di yacht e imbarcazioni di lusso.
 
@@ -20,49 +20,37 @@
 ---
 
 ## 🛠 Stack Tecnologico
-┌─────────────────────────────────────────────────────────────┐
-│  🚢 MarinaFlow Advanced                                    │
-│  Piattaforma di digitalizzazione per cantieri nautici     │
-├─────────────────────────────────────────────────────────────┤
-│  📊 4 Yacht  |  📋 9 Task  |  🏭 5 Società  |  📦 3 Consegne │
-├─────────────────────────────────────────────────────────────┤
-│  📅 Diagramma di Gantt                          [Tutti]  ▼  │
-│  ───────────────────────────────────────────────────────── │
-│  🚢 Sea Spirit                                             │
-│  ████████ Trasporto scafo       01/03 - 05/03  [✅📧]     │
-│  ████████ Stoccaggio materiali  06/03 - 10/03  [⚡📧]     │
-│                                                            │
-│  🚢 Ocean Dream                                            │
-│  ████████ Taglio lamiere        15/03 - 20/03  [⚡]       │
-└─────────────────────────────────────────────────────────────┘
 
+Frontend : HTML5, CSS3, JavaScript ES6+
+Styling : CSS Custom Properties, Flexbox, CSS Grid
+Icone : Font Awesome 6
+Font : Segoe UI (sistema)
+Licenza : CC BY-NC-ND 4.0
+
+.
+
+📊 Dati di Esempio
+La demo include dati simulati per:
+
+Categoria	Quantità
+🚢 Yacht in produzione	4
+📋 Task attivi	9
+🏭 Società coinvolte	5
+📦 Consegne Q2 2024	3
 👨‍💻 Sviluppo e Concept
 Ideato e sviluppato da: Carmine D'Alise
 Ruolo: Full Stack Developer & UI Designer
 Anno: 2024
 Concept: Digitalizzazione cantieri nautici
 
-┌────────────────────────────────────┐
-│  Progettazione UI/UX     100%     │
-│  Sviluppo Frontend       100%     │
-│  Ottimizzazione Performance ✓     │
-│  Cross-browser testing   ✓       │
-│  Responsive Design       ✓       │
-└────────────────────────────────────┘
-
-┘
-📌 Demo Live
+text
+✅ Progettazione UI/UX        100%
+✅ Sviluppo Frontend          100%
+✅ Ottimizzazione Performance ✓
+✅ Cross-browser testing     ✓
+✅ Responsive Design         ✓
+🌐 Demo Live
 🔗 https://iacreatorcar.github.io/nauticgantt/
-
-La demo include dati simulati per:
-
-4 yacht in produzione
-
-9 task attivi
-
-5 società coinvolte
-
-3 consegne Q2 2024
 
 📄 Licenza
 Quest'opera è rilasciata sotto licenza
@@ -70,20 +58,20 @@ Creative Commons Attribuzione - Non commerciale - Non opere derivate 4.0 Interna
 
 Tu sei libero di:
 
-Condividere – riprodurre, distribuire, comunicare al pubblico il materiale
+✅ Condividere – riprodurre, distribuire, comunicare al pubblico il materiale
 
 Alle seguenti condizioni:
 
-Attribuzione – Devi riconoscere una menzione di paternità adeguata
+📌 Attribuzione – Devi riconoscere una menzione di paternità adeguata
 
-NonCommerciale – Non puoi usare il materiale per scopi commerciali
+💰 NonCommerciale – Non puoi usare il materiale per scopi commerciali
 
-Non opere derivate – Non puoi modificare o trasformare il materiale
+🚫 Non opere derivate – Non puoi modificare o trasformare il materiale
 
 Testo completo: LICENSE
 
 ⭐ Crediti
-Realizzato con cura da Carmine D'Alise per dimostrazione tecnica.
+Realizzato con cura da Carmine D'Alise per dimostrazione tecnica e portfolio.
 Se il progetto ti è utile, lascia una stella su GitHub!
 
 📬 Contatti:
